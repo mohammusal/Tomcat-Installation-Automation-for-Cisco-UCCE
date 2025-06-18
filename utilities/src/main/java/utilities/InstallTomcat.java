@@ -1207,15 +1207,29 @@ public class InstallTomcat {
     	
     }
     
+    
     private static boolean  InstallStepPostInstallRemoveJakartaISAPIFilter (){
     	boolean bPostWorkResults = true;
     	 try {
-             //String configPath = "C:\\Windows\\System32\\inetsrv\\config\\applicationHost.config";
+             //String configPath = "C:\\Windows\\System32\\inetsrv\\config\\applicationHost.config";  /// for 64 bit java
              
-             // Use Sysnative if using 32-bit Java on 64-bit Windows
-             String configPath = System.getenv("windir") + "\\Sysnative\\inetsrv\\config\\applicationHost.config";
+             // Use Sysnative if using 32-bit Java on 64-bit Windows 
+
+    		 String configPath ="";
+    		 String jvm = System.getProperty("sun.arch.data.model");
+    		 
+    		   if ("32".equals(jvm)) {
+    			     LOGGER.info("Java is 32-bit");
+    	              configPath = System.getenv("windir") + "\\Sysnative\\inetsrv\\config\\applicationHost.config";
+
+    	        } else if ("64".equals(jvm)) {
+    	        	LOGGER.info("Java is 64-bit");
+    	        	 configPath = System.getenv("windir") + "\\System32\\inetsrv\\config\\applicationHost.config";
+    	        } else {
+    	        	LOGGER.info("Unable to determine JVM bitness");
+    	        }
+
             
-             
              File xmlFile = new File(configPath);
              if (!xmlFile.exists()) {
                  System.err.println("Config file not found: " + configPath);

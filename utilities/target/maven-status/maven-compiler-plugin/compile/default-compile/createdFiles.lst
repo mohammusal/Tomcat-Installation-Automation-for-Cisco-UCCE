@@ -10,7 +10,6 @@ utilities\FileMgr$TomcatBackupOrRestoreProgress.class
 utilities\RegistryRoot$1.class
 utilities\Registry.class
 utilities\SystemConsole.class
-utilities\test.class
 utilities\SvcCtl$SvcState.class
 utilities\InstallTomcat.class
 utilities\RegistryRoot$2.class
